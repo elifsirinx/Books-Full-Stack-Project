@@ -1,4 +1,5 @@
 using Books.Business;
+using Books.Business.Extensions;
 using Books.DataAccess.Data;
 using Books.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,7 @@ namespace Books.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMapperConfiguration();
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<IPublisherRepository,EFPublisherRepository>();
             var connectionString = Configuration.GetConnectionString("db");

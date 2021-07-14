@@ -1,5 +1,8 @@
-﻿using Books.Business.DataTransferObjects;
+﻿using AutoMapper;
+using Books.Business.DataTransferObjects;
+using Books.Business.Extensions;
 using Books.DataAccess.Repositories;
+using Books.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +13,33 @@ namespace Books.Business
     public class PublisherService : IPublisherService
     {
         public IPublisherRepository publisherRepository;
-        public PublisherService(IPublisherRepository publisherRepository)
+        private IMapper mapper;
+
+        public PublisherService(IPublisherRepository publisherRepository, IMapper mapper)
         {
             this.publisherRepository = publisherRepository;
+            this.mapper = mapper;
         }
-        public IList<PublisherResponseList> GetAllPublisher()
+
+        public int AddPublisher(AddNewPublisherRequest request)
+        {
+            var newPublisher = request.ConvertToPublisher(mapper);
+            publisherRepository.Add(newPublisher);
+            return newPublisher.Id;
+        }
+
+        public IList<PublisherListResponse> GetAllPublisher()
         {
             var dtoList = publisherRepository.GetAll().ToList();
-            List<PublisherResponseList> result = new List<PublisherResponseList>();
-            dtoList.ForEach(p => result.Add(new PublisherResponseList { 
-                Id = p.Id, 
-                Name = p.Name 
-            }));
-
+            // Extension Method
+            var result = dtoList.ConvertToListResponse(mapper);
             return result;
+        }
+
+        public PublisherListResponse GetPublisherById(int id)
+        {
+            Publisher publisher = publisherRepository.GetById(id);
+            return publisher.ConvertFromEntity(mapper);
         }
     }
 }

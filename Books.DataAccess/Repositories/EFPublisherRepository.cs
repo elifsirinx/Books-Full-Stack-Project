@@ -18,7 +18,9 @@ namespace Books.DataAccess.Repositories
         }
         public Publisher Add(Publisher entity)
         {
-            throw new NotImplementedException();
+            db.Publishers.Add(entity);
+            db.SaveChanges();
+            return entity;
         }
 
         public IList<Publisher> GetAll()
@@ -28,7 +30,7 @@ namespace Books.DataAccess.Repositories
 
         public Publisher GetById(int id)
         {
-            throw new NotImplementedException();
+            return db.Publishers.Find(id);
         }
 
         public IList<Publisher> GetWithCriteria(Expression<Func<Publisher, bool>> criteria)
