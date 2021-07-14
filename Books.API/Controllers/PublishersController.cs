@@ -10,10 +10,10 @@ namespace Books.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PublisherController : ControllerBase
+    public class PublishersController : ControllerBase
     {
         private IPublisherService service;
-        public PublisherController(IPublisherService publisherService)
+        public PublishersController(IPublisherService publisherService)
         {
             service = publisherService;
         }

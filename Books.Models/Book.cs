@@ -9,10 +9,12 @@ namespace Books.Models
     {
         public int Id { get ; set ; }
 
-        [Required(ErrorMessage = "Name field can't be empty!")]
+        [Required(ErrorMessage = "Title field can't be empty!")]
+        [MinLength(2, ErrorMessage = "Title has to be min 2 characters.")]
+        [MaxLength(200, ErrorMessage = "Title has to be min 2 characters.")]
         public string Title { get; set; }
-        public decimal Price { get; set; }
-        public decimal Rating { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? Rating { get; set; }
         public string About { get; set; }
         public string ImagePath { get; set; }
 

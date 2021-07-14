@@ -1,9 +1,11 @@
 using Books.Business;
+using Books.DataAccess.Data;
 using Books.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,7 +31,9 @@ namespace Books.API
         {
             services.AddControllers();
             services.AddScoped<IPublisherService, PublisherService>();
-            services.AddScoped<IPublisherRepository, FakePublisherRepository>();
+            services.AddScoped<IPublisherRepository,EFPublisherRepository>();
+            var connectionString = Configuration.GetConnectionString("db");
+            services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
