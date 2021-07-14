@@ -14,5 +14,6 @@ namespace Books.Business
         int AddPublisher(AddNewPublisherRequest request);
         PublisherListResponse GetPublisherById(int id);
         int UpdatePublisher(EditPublisherRequest request);
+        void DeletePublisher(int id);
     }
 }

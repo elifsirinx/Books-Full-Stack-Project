@@ -74,13 +74,7 @@ namespace Books.API.Controllers
         [PublisherExists]
         public IActionResult Delete(int Id)
         {
-            // Above the proccess done by PublisherExist
-            //var isExisting = service.GetPublisherById(id);
-            //if (isExisting == null)
-            //{
-            //    return NotFound();
-            //}
-
+            service.DeletePublisher(Id);
             return Ok();
            
         }

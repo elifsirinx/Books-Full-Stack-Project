@@ -25,7 +25,7 @@ namespace Books.API.Filters
             }
             public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
             {
-                if (context.ActionArguments.ContainsKey("id"))
+                if (!context.ActionArguments.ContainsKey("id"))
                 {
                     context.Result = new BadRequestResult();
                     return;

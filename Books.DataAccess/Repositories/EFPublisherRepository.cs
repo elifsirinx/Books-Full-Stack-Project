@@ -24,6 +24,12 @@ namespace Books.DataAccess.Repositories
             return entity;
         }
 
+        public void Delete(int id)
+        {
+            db.Publishers.Remove(GetById(id));
+            db.SaveChanges();
+        }
+
         public IList<Publisher> GetAll()
         {
             return db.Publishers.ToList();

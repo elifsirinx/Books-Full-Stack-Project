@@ -28,6 +28,11 @@ namespace Books.Business
             return newPublisher.Id;
         }
 
+        public void DeletePublisher(int id)
+        {
+            publisherRepository.Delete(id);
+        }
+
         public IList<PublisherListResponse> GetAllPublisher()
         {
             var dtoList = publisherRepository.GetAll().ToList();
