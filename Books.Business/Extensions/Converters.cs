@@ -35,5 +35,26 @@ namespace Books.Business.Extensions
         {
             return mapper.Map<Publisher>(request);
         }
+
+
+
+        public static List<BookListResponse> ConvertToListResponse(this List<Book> books, IMapper mapper)
+        {
+            //var result = new List<PublisherListResponse>();
+
+            //publishers.ForEach(p => result.Add(new PublisherListResponse
+            //{
+            //    Id = p.Id,
+            //    Name = p.Name
+            //}));
+
+            //return result;
+
+            return mapper.Map<List<BookListResponse>>(books);
+        }
+        public static BookListResponse ConvertFromEntity(this Book request, IMapper mapper)
+        {
+            return mapper.Map<BookListResponse>(request);
+        }
     }
 }

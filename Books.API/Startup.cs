@@ -32,8 +32,14 @@ namespace Books.API
         {
             services.AddControllers();
             services.AddMapperConfiguration();
+
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<IPublisherRepository,EFPublisherRepository>();
+
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IBookRepository, EFBookRepository>();
+
+
             var connectionString = Configuration.GetConnectionString("db");
             services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));
         }

@@ -14,6 +14,9 @@ namespace Books.Business.Mapper
             CreateMap<Publisher, PublisherListResponse>().ReverseMap();
             CreateMap<Publisher, AddNewPublisherRequest>().ReverseMap();
             CreateMap<Publisher, EditPublisherRequest>().ReverseMap();
+
+            CreateMap<Book, BookListResponse>().ReverseMap();
+
         }
     }
 }
