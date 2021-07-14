@@ -33,5 +33,10 @@ namespace Books.DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Publisher Update(Publisher entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

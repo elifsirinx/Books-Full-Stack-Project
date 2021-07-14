@@ -41,5 +41,12 @@ namespace Books.Business
             Publisher publisher = publisherRepository.GetById(id);
             return publisher.ConvertFromEntity(mapper);
         }
+
+        public int UpdatePublisher(EditPublisherRequest request)
+        {
+            var publisher = request.ConvertToEntity(mapper);
+            int id = publisherRepository.Update(publisher).Id;
+            return id;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Books.Business
         //returns Last Added Value's Id
         int AddPublisher(AddNewPublisherRequest request);
         PublisherListResponse GetPublisherById(int id);
+        int UpdatePublisher(EditPublisherRequest request);
     }
 }

@@ -7,6 +7,6 @@ namespace Books.DataAccess.Repositories
 {
     public interface IPublisherRepository : IRepository<Publisher>
     {
-
+        
     }
 }

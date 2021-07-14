@@ -31,5 +31,9 @@ namespace Books.Business.Extensions
         {
             return mapper.Map<PublisherListResponse>(request);
         }
+        public static Publisher ConvertToEntity(this EditPublisherRequest request, IMapper mapper)
+        {
+            return mapper.Map<Publisher>(request);
+        }
     }
 }

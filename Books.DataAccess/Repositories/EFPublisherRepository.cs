@@ -1,5 +1,6 @@
 ﻿using Books.DataAccess.Data;
 using Books.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,20 @@ namespace Books.DataAccess.Repositories
 
         public Publisher GetById(int id)
         {
-            return db.Publishers.Find(id);
+            return db.Publishers.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
         public IList<Publisher> GetWithCriteria(Expression<Func<Publisher, bool>> criteria)
         {
             throw new NotImplementedException();
+        }
+
+        public Publisher Update(Publisher entity)
+        {
+            //Update Publishers set name="?" where id=?
+            db.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.SaveChanges();
+            return entity;
         }
     }
 }

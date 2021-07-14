@@ -12,5 +12,6 @@ namespace Books.DataAccess.Repositories
         TEntity GetById(int id);
         IList<TEntity> GetWithCriteria(Expression<Func<TEntity, bool>> criteria);
         TEntity Add(TEntity entity);
+        TEntity Update(TEntity entity);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Books.Business;
+﻿using Books.API.Filters;
+using Books.Business;
 using Books.Business.DataTransferObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace Books.API.Controllers
             }
             return NotFound();
         }
-
+        //Add value proccess
         [HttpPost]
         public IActionResult AddPublisher(AddNewPublisherRequest request)
         {
@@ -47,8 +48,41 @@ namespace Books.API.Controllers
             }
 
             return BadRequest(ModelState);
-            
+        }
 
+        //Update value proccess
+        [HttpPut("{id}")]
+        [PublisherExists]
+        public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
+        {
+            // Above the proccess done by PublisherExist
+            //var isExisting = service.GetPublisherById(id);
+            //if(isExisting == null)
+            //{
+            //    return NotFound();
+            //}
+            if (ModelState.IsValid)
+            {
+                int newItemId = service.UpdatePublisher(request);
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
+        //Delete value proccess
+        [HttpDelete("{id}")]
+        [PublisherExists]
+        public IActionResult Delete(int Id)
+        {
+            // Above the proccess done by PublisherExist
+            //var isExisting = service.GetPublisherById(id);
+            //if (isExisting == null)
+            //{
+            //    return NotFound();
+            //}
+
+            return Ok();
+           
         }
     }
 }
