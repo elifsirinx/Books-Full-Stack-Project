@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Books.API
             services.AddMapperConfiguration();
 
             services.AddScoped<IPublisherService, PublisherService>();
-            services.AddScoped<IPublisherRepository,EFPublisherRepository>();
+            services.AddScoped<IPublisherRepository, EFPublisherRepository>();
 
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookRepository, EFBookRepository>();
@@ -42,15 +43,31 @@ namespace Books.API
 
             var connectionString = Configuration.GetConnectionString("db");
             services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));
-        }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            services.AddSwaggerGen(option => option.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Title of the Document",
+                Contact = new OpenApiContact
+                {
+                    Email = "elifsirin42@gmail.com",
+                    Name = "Elif"
+                    
+                },
+                Version="v1"
+            }));
+        }
+        
+// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(opt => opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Books.API"));
+
 
             app.UseHttpsRedirection();
 
