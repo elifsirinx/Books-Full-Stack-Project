@@ -2,6 +2,7 @@ using Books.Business;
 using Books.Business.Extensions;
 using Books.DataAccess.Data;
 using Books.DataAccess.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,10 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Books.API
@@ -44,6 +47,7 @@ namespace Books.API
             var connectionString = Configuration.GetConnectionString("db");
             services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));
 
+            //Created for swagger UI
             services.AddSwaggerGen(option => option.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Title of the Document",
@@ -55,6 +59,29 @@ namespace Books.API
                 },
                 Version="v1"
             }));
+
+            //Created for security
+            var issuer = Configuration.GetSection("Bearer")["Issuer"];
+            var audience = Configuration.GetSection("Bearer")["Audience"];
+            var key = Configuration.GetSection("Bearer")["SecurityKey"];
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateActor = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = issuer,
+                        ValidAudience = audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                    };
+                });
+
+
+
         }
         
 // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +99,9 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //Created for security
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

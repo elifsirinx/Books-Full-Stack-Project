@@ -10,7 +10,7 @@ namespace Books.DataAccess.Repositories
     {
         IList<TEntity> GetAll();
         TEntity GetById(int id);
-        IList<TEntity> GetWithCriteria(Expression<Func<TEntity, bool>> criteria);
+        IList<TEntity> GetWithCriteria(Func<TEntity, bool> criteria);
         TEntity Add(TEntity entity);
         TEntity Update(TEntity entity);
         void Delete(int id);

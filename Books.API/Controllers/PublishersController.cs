@@ -1,6 +1,7 @@
 ﻿using Books.API.Filters;
 using Books.Business;
 using Books.Business.DataTransferObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ namespace Books.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PublishersController : ControllerBase
     {
         private IPublisherService service;
@@ -21,6 +23,7 @@ namespace Books.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             var result = service.GetAllPublisher();
@@ -28,6 +31,7 @@ namespace Books.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult GetById(int id)
         {
             var publisherListResponse = service.GetPublisherById(id);
