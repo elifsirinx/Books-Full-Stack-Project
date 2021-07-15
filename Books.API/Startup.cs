@@ -50,7 +50,7 @@ namespace Books.API
                 Contact = new OpenApiContact
                 {
                     Email = "elifsirin42@gmail.com",
-                    Name = "Elif"
+                    Name = "Elif "
                     
                 },
                 Version="v1"
