@@ -1,6 +1,7 @@
 ﻿using Books.API.Filters;
 using Books.Business;
 using Books.Business.DataTransferObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ namespace Books.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private IBookService service;
@@ -21,6 +23,7 @@ namespace Books.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Get()
         {
             var result = service.GetAllBook();
@@ -28,6 +31,7 @@ namespace Books.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult GetById(int id)
         {
             var bookListResponse = service.GetBookById(id);
@@ -39,6 +43,7 @@ namespace Books.API.Controllers
         }
         //Add value proccess
         [HttpPost]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult AddPublisher(AddNewBookRequest request)
         {
             if (ModelState.IsValid)
@@ -66,7 +71,8 @@ namespace Books.API.Controllers
 
         //Delete value proccess
         [HttpDelete("{id}")]
-        [BookExists]
+        [BookExists] 
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult Delete(int Id)
         {
             service.DeleteBook(Id);
