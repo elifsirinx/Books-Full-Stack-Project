@@ -40,7 +40,7 @@ namespace Books.DataAccess.Repositories
             return db.Publishers.AsNoTracking().FirstOrDefault(x => x.Id == id);
         }
 
-        public IList<Publisher> GetWithCriteria(Expression<Func<Publisher, bool>> criteria)
+        public IList<Publisher> GetWithCriteria(Func<Publisher, bool> criteria)
         {
             throw new NotImplementedException();
         }

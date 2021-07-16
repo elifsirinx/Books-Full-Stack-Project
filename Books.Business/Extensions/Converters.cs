@@ -56,5 +56,14 @@ namespace Books.Business.Extensions
         {
             return mapper.Map<BookListResponse>(request);
         }
+
+        public static Book ConvertToBook(this AddNewBookRequest request, IMapper mapper)
+        {
+            return mapper.Map<Book>(request);
+        }
+        public static Book ConvertToEntity(this EditBookRequest request, IMapper mapper)
+        {
+            return mapper.Map<Book>(request);
+        }
     }
 }

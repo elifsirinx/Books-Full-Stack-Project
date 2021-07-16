@@ -4,6 +4,8 @@ using Books.Business.DataTransferObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +19,34 @@ namespace Books.API.Controllers
     public class PublishersController : ControllerBase
     {
         private IPublisherService service;
-        public PublishersController(IPublisherService publisherService)
+        private ILogger<PublishersController> _logger;
+        public PublishersController(IPublisherService publisherService, ILogger<PublishersController> logger)
         {
             service = publisherService;
+            _logger = logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
+        [ResponseCache(Duration =300)]
         public IActionResult Get()
         {
+            _logger.LogInformation("Get is starting...");
+            Stopwatch stopwatch = Stopwatch.StartNew();
             var result = service.GetAllPublisher();
-            return Ok(result);
+            stopwatch.Stop();
+            _logger.LogDebug($"fetch data from database , {stopwatch.ElapsedMilliseconds} ms.");
+
+            return Ok(new
+            {
+                publishers = result,
+                value = DateTime.Now.ToString()
+            }); 
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
+        [ResponseCache(Duration =300, VaryByQueryKeys = new[] { "id" })]
         public IActionResult GetById(int id)
         {
             var publisherListResponse = service.GetPublisherById(id);
@@ -43,6 +58,7 @@ namespace Books.API.Controllers
         }
         //Add value proccess
         [HttpPost]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult AddPublisher(AddNewPublisherRequest request)
         {
             if (ModelState.IsValid) 

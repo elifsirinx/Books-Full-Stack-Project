@@ -20,6 +20,19 @@ namespace Books.Business
             this.bookRepository = bookRepository;
             this.mapper = mapper;
         }
+
+        public int AddBook(AddNewBookRequest request)
+        {
+            var newBook = request.ConvertToBook(mapper);
+            bookRepository.Add(newBook);
+            return newBook.Id;
+        }
+
+        public void DeleteBook(int id)
+        {
+            bookRepository.Delete(id);
+        }
+
         public IList<BookListResponse> GetAllBook()
         {
             var dtoList = bookRepository.GetAll().ToList();
@@ -32,6 +45,13 @@ namespace Books.Business
         {
             Book book = bookRepository.GetById(id);
             return book.ConvertFromEntity(mapper);
+        }
+
+        public int UpdateBook(EditBookRequest request)
+        {
+            var book = request.ConvertToEntity(mapper);
+            int id = bookRepository.Update(book).Id;
+            return id;
         }
     }
 }

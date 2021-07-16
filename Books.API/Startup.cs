@@ -43,6 +43,9 @@ namespace Books.API
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookRepository, EFBookRepository>();
 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, FakeUserRepository>();
+
 
             var connectionString = Configuration.GetConnectionString("db");
             services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));
@@ -80,7 +83,19 @@ namespace Books.API
                     };
                 });
 
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("Allow", builder =>
+                 {
+                     builder.AllowAnyOrigin()
+                             .AllowAnyMethod()
+                             .AllowAnyHeader();
 
+
+                 });
+            });
+
+            services.AddResponseCaching();
 
         }
         
@@ -99,6 +114,10 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("Allow");
+
+            app.UseResponseCaching();
 
             //Created for security
             app.UseAuthentication();

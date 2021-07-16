@@ -1,4 +1,6 @@
-﻿using Books.Business;
+﻿using Books.API.Filters;
+using Books.Business;
+using Books.Business.DataTransferObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,47 +37,42 @@ namespace Books.API.Controllers
             }
             return NotFound();
         }
-        //    //Add value proccess
-        //    [HttpPost]
-        //    public IActionResult AddPublisher(AddNewPublisherRequest request)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            int publishereId = service.AddPublisher(request);
-        //            return CreatedAtAction(nameof(GetById), routeValues: new { id = publishereId }, value: null);
-        //        }
+        //Add value proccess
+        [HttpPost]
+        public IActionResult AddPublisher(AddNewBookRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                int publishereId = service.AddBook(request);
+                return CreatedAtAction(nameof(GetById), routeValues: new { id = publishereId }, value: null);
+            }
 
-        //        return BadRequest(ModelState);
-        //    }
+            return BadRequest(ModelState);
+        }
 
-        //    //Update value proccess
-        //    [HttpPut("{id}")]
-        //    [PublisherExists]
-        //    public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
-        //    {
-        //        // Above the proccess done by PublisherExist
-        //        //var isExisting = service.GetPublisherById(id);
-        //        //if(isExisting == null)
-        //        //{
-        //        //    return NotFound();
-        //        //}
-        //        if (ModelState.IsValid)
-        //        {
-        //            int newItemId = service.UpdatePublisher(request);
-        //            return Ok();
-        //        }
-        //        return BadRequest(ModelState);
-        //    }
+        //Update value proccess
+        [HttpPut("{id}")]
+        [BookExists]
+        public IActionResult UpdateBook(int id, EditBookRequest request)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                int newItemId = service.UpdateBook(request);
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
 
-        //    //Delete value proccess
-        //    [HttpDelete("{id}")]
-        //    [PublisherExists]
-        //    public IActionResult Delete(int Id)
-        //    {
-        //        service.DeletePublisher(Id);
-        //        return Ok();
+        //Delete value proccess
+        [HttpDelete("{id}")]
+        [BookExists]
+        public IActionResult Delete(int Id)
+        {
+            service.DeleteBook(Id);
+            return Ok();
 
-        //    }
-        //}
+        }
     }
 }
+

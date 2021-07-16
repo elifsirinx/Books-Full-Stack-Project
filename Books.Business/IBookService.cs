@@ -9,5 +9,8 @@ namespace Books.Business
     {
         IList<BookListResponse> GetAllBook();
         BookListResponse GetBookById(int id);
+        int AddBook(AddNewBookRequest request);
+        int UpdateBook(EditBookRequest request);
+        void DeleteBook(int id);
     }
 }

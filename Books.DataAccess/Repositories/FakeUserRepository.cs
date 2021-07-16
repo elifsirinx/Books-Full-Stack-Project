@@ -21,9 +21,9 @@ namespace Books.DataAccess.Repositories
         private List<User> users = new List<User>
         {
 
-               new User{Email="abc@xxx.com", Password="123"},
-               new User{Email="def@xxx.com", Password="987"},
-               new User{Email="zxc@xxx.com", Password="666"},
+               new User{Email="abc@xxx.com", Password="123", UserName="Elif",Role="Admin"},
+               new User{Email="def@xxx.com", Password="987",UserName="Merve", Role="Editor"},
+               new User{Email="zxc@xxx.com", Password="666", UserName="İrem", Role="User"},
         };
         public IList<User> GetAll()
         {
