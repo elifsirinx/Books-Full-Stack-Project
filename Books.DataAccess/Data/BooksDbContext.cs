@@ -1,5 +1,6 @@
 ﻿using Books.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Books.DataAccess.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        //public DbSet<BookAuthor> BookAuthors { get; set; }
+        //public DbSet<BookGenre> BookGenres { get; set; }
 
         public BooksDbContext()
         {
@@ -62,6 +65,13 @@ namespace Books.DataAccess.Data
 
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning));
         }
 
     }

@@ -56,6 +56,34 @@ namespace Books.API.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet("GetPublisherByBookTitle/{bookTitle}")]
+        [AllowAnonymous]
+        public IActionResult GetPublisherByBookTitle(string bookTitle)
+        {
+            var publishersdto = service.GetPublisherByBookTitle(bookTitle);
+            if (publishersdto != null)
+            {
+                return Ok(publishersdto);
+            }
+            return NotFound();
+
+        }
+        [HttpGet("GetPublisherByPublisherName/{publisherName}")]
+        [AllowAnonymous]
+        public IActionResult GetPublisherByPublisherName(string publisherName)
+        {
+
+            var publishersdto = service.GetPublisherByPublisherName(publisherName);
+            if (publishersdto != null)
+            {
+                return Ok(publishersdto);
+                // return Ok(bookListResponse);
+            }
+            return NotFound();
+
+        }
+
         //Add value proccess
         [HttpPost]
         [Authorize(Roles = "Admin,Editor")]

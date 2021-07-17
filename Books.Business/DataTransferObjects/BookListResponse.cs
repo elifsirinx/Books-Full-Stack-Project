@@ -13,7 +13,8 @@ namespace Books.Business.DataTransferObjects
         public decimal Rating { get; set; }
         public string ImagePath { get; set; }
         public int PublisherId { get; set; }
-        public Publisher Publisher { get; set; }
+        //public virtual Publisher Publisher { get; set; }
+        //public virtual IList<BookAuthor> Authors { get; set; }
 
     }
 }

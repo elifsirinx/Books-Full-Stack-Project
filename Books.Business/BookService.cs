@@ -41,10 +41,41 @@ namespace Books.Business
             return result;
         }
 
+        public IList<BookListResponse> GetBookByAuthorName(string authorName)
+        {
+            var bookDtoList = bookRepository.GetAll().Where(x => x.Authors.Any(y => y.Author.Name.Contains(authorName, StringComparison.OrdinalIgnoreCase))).ToList();
+            //var bookDtoList = bookRepository.GetAll().Where(x => x.Authors.Any(y => y.Author.Name.Contains("Ayşe"))).ToList();
+            //Where(x => x.Authors.Any(y => y.Author.Name == "Ayşe"))
+            //Where(x => x.Authors.Any(y => y.Author.Name == "Ayşe"));
+            //var result = service.GetAllBook().Where(x => x.Authors.Contains(x);
+            var result = bookDtoList.ConvertToListResponse(mapper);
+            return result;
+        }
+
+        public IList<BookListResponse> GetBookByBookTitle(string bookTitle)
+        {
+            var bookDtoList = bookRepository.GetAll().Where(x => x.Title.Contains(bookTitle, StringComparison.OrdinalIgnoreCase)).ToList();
+            //Where(x => x.Authors.Any(y => y.Author.Name == "Ayşe"))
+            //Where(x => x.Authors.Any(y => y.Author.Name == "Ayşe"));
+            //var result = service.GetAllBook().Where(x => x.Authors.Contains(x);
+            var result = bookDtoList.ConvertToListResponse(mapper);
+            return result;
+        }
+
         public BookListResponse GetBookById(int id)
         {
             Book book = bookRepository.GetById(id);
             return book.ConvertFromEntity(mapper);
+        }
+
+        public IList<BookListResponse> GetBookByPublisherName(string publisherName)
+        {
+            //var bookDtoList = bookRepository.GetAll().Where(x => x.Publisher.Name == publisherName).ToList();
+            var bookDtoList = bookRepository.GetAll().Where(x=>x.Publisher.Name.Contains(publisherName, StringComparison.OrdinalIgnoreCase)).ToList();
+            //Where(x => x.Authors.Any(y => y.Author.Name == "Ayşe"));
+            //var result = service.GetAllBook().Where(x => x.Authors.Contains(x);
+            var result = bookDtoList.ConvertToListResponse(mapper);
+            return result;
         }
 
         public int UpdateBook(EditBookRequest request)

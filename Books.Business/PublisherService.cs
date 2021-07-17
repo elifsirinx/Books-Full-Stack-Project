@@ -41,6 +41,20 @@ namespace Books.Business
             return result;
         }
 
+        public IList<PublisherListResponse> GetPublisherByPublisherName(string publisherName)
+        {
+            var publisherDtoList = publisherRepository.GetAll().Where(x => x.Name.Contains(publisherName, StringComparison.OrdinalIgnoreCase)).ToList();
+            var result = publisherDtoList.ConvertToListResponse(mapper);
+            return result;
+        }
+
+        public IList<PublisherListResponse> GetPublisherByBookTitle(string bookTitle)
+        {
+            var publisherDtoList = publisherRepository.GetAll().Where(x => x.Books.Any(y=>y.Title.Contains(bookTitle, StringComparison.OrdinalIgnoreCase))).ToList();
+            var result = publisherDtoList.ConvertToListResponse(mapper);
+            return result;
+        }
+
         public PublisherListResponse GetPublisherById(int id)
         {
             Publisher publisher = publisherRepository.GetById(id);

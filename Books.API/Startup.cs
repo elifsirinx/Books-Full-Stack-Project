@@ -46,6 +46,10 @@ namespace Books.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, FakeUserRepository>();
 
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
             var connectionString = Configuration.GetConnectionString("db");
             services.AddDbContext<BooksDbContext>(option => option.UseSqlServer(connectionString));

@@ -9,7 +9,8 @@ namespace Books.Business
     public interface IPublisherService
     {
         IList<PublisherListResponse> GetAllPublisher();
-
+        IList<PublisherListResponse> GetPublisherByPublisherName(string PublisherName);
+        IList<PublisherListResponse> GetPublisherByBookTitle(string BookTitle);
         //returns Last Added Value's Id
         int AddPublisher(AddNewPublisherRequest request);
         PublisherListResponse GetPublisherById(int id);
