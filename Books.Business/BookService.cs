@@ -52,6 +52,13 @@ namespace Books.Business
             return result;
         }
 
+        public IList<BookListResponse> GetBookByBookGenreName(string genreName)
+        {
+            var bookDtoList = bookRepository.GetAll().Where(x => x.Genres.Any(y => y.Genre.Name.Contains(genreName, StringComparison.OrdinalIgnoreCase))).ToList();
+            var result = bookDtoList.ConvertToListResponse(mapper);
+            return result;
+        }
+
         public IList<BookListResponse> GetBookByBookTitle(string bookTitle)
         {
             var bookDtoList = bookRepository.GetAll().Where(x => x.Title.Contains(bookTitle, StringComparison.OrdinalIgnoreCase)).ToList();

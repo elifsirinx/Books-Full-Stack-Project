@@ -12,6 +12,7 @@ namespace Books.Business
         IList<BookListResponse> GetBookByPublisherName(string publisherName);
         IList<BookListResponse> GetBookByAuthorName(string AuthorName);
         IList<BookListResponse> GetBookByBookTitle(string BookTitle);
+        IList<BookListResponse> GetBookByBookGenreName(string genreName);
         BookListResponse GetBookById(int id);
         int AddBook(AddNewBookRequest request);
         int UpdateBook(EditBookRequest request);

@@ -9,6 +9,8 @@ namespace Books.Business.Extensions
 {
     public static class Converters
     {
+
+        // PUBLISHER
         public static List<PublisherListResponse> ConvertToListResponse(this List<Publisher> publishers, IMapper mapper)
         {
             //var result = new List<PublisherListResponse>();
@@ -37,6 +39,7 @@ namespace Books.Business.Extensions
         }
 
 
+        // BOOK
 
         public static List<BookListResponse> ConvertToListResponse(this List<Book> books, IMapper mapper)
         {
@@ -64,6 +67,24 @@ namespace Books.Business.Extensions
         public static Book ConvertToEntity(this EditBookRequest request, IMapper mapper)
         {
             return mapper.Map<Book>(request);
+        }
+
+        // GENRE
+        public static List<GenreListResponse> ConvertToListResponse(this List<Genre> genres, IMapper mapper)
+        {
+            return mapper.Map<List<GenreListResponse>>(genres);
+        }
+        public static Genre ConvertToGenre(this AddNewGenreRequest request, IMapper mapper)
+        {
+            return mapper.Map<Genre>(request);
+        }
+        public static GenreListResponse ConvertFromEntity(this Genre request, IMapper mapper)
+        {
+            return mapper.Map<GenreListResponse>(request);
+        }
+        public static Genre ConvertToEntity(this EditGenreRequest request, IMapper mapper)
+        {
+            return mapper.Map<Genre>(request);
         }
     }
 }

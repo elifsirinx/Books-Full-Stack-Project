@@ -19,13 +19,12 @@ namespace Books.API.Controllers
     public class BooksController : ControllerBase
     {
         private IBookService service;
-        private IMapper mapper;
         public BooksController(IBookService bookService)
         {
             service = bookService;
         }
 
-        [HttpGet("GetAllBook")]
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Get()
         {
@@ -34,12 +33,7 @@ namespace Books.API.Controllers
             var result = service.GetAllBook();
             //var result = service.GetAllBook().Where(x => x.Authors.Contains(x);
             //return Ok(result.ToList());
-            return Ok(new
-            {
-               bookListResponse = result.ToList(),
-                //value = result.Where(x => x.Authors.Any(y => y.BookId==2)).ToList()
-                //value = result.Where(x => x.Authors.Any(y => y.Author.Id==1)).ToList()
-            });
+            return Ok(result.ToList());
             //var result = service.GetAllBook();
             //return Ok(result);
         }
@@ -88,6 +82,20 @@ namespace Books.API.Controllers
             return NotFound();
 
         }
+
+        [HttpGet("GetBookByBookGenreName/{genreName}")]
+        [AllowAnonymous]
+        public IActionResult GetBookByBookGenreName(string genreName)
+        {
+            var booksdto = service.GetBookByBookGenreName(genreName);
+            if (booksdto != null)
+            {
+                return Ok(booksdto);
+            }
+            return NotFound();
+
+        }
+
         [HttpGet("GetBookByBookTitle/{bookTitle}")]
         [AllowAnonymous]
         public IActionResult GetBookByBookTitle(string bookTitle)

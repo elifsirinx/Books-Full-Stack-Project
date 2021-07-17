@@ -43,6 +43,9 @@ namespace Books.API
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IBookRepository, EFBookRepository>();
 
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, EFGenreRepository>();
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, FakeUserRepository>();
 

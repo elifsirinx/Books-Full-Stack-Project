@@ -101,6 +101,7 @@ namespace Books.API.Controllers
         //Update value proccess
         [HttpPut("{id}")]
         [PublisherExists]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult UpdatePublisher(int id, EditPublisherRequest request)
         {
             // Above the proccess done by PublisherExist
@@ -120,6 +121,7 @@ namespace Books.API.Controllers
         //Delete value proccess
         [HttpDelete("{id}")]
         [PublisherExists]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult Delete(int Id)
         {
             service.DeletePublisher(Id);
