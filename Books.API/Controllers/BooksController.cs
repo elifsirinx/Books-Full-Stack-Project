@@ -33,12 +33,17 @@ namespace Books.API.Controllers
             var result = service.GetAllBook();
             //var result = service.GetAllBook().Where(x => x.Authors.Contains(x);
             //return Ok(result.ToList());
-            return Ok(result.ToList());
+            //return Ok(result.ToList());
             //var result = service.GetAllBook();
             //return Ok(result);
+            return Ok(new
+            {
+                results = result.ToList()
+                //  value = bookListResponse.Authors
+            });
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public IActionResult GetById(int id)
         {
@@ -83,11 +88,11 @@ namespace Books.API.Controllers
 
         }
 
-        [HttpGet("GetBookByBookGenreName/{genreName}")]
+        [HttpGet("GetBookByBookGenreId/{genreId}")]
         [AllowAnonymous]
-        public IActionResult GetBookByBookGenreName(string genreName)
+        public IActionResult GetBookByBookGenreId(int genreId)
         {
-            var booksdto = service.GetBookByBookGenreName(genreName);
+            var booksdto = service.GetBookByBookGenreId(genreId);
             if (booksdto != null)
             {
                 return Ok(booksdto);

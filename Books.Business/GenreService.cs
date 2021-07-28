@@ -42,9 +42,11 @@ namespace Books.Business
 
         public IList<GenreListResponse> GetGenreByGenreName(string genreName)
         {
-            var genreDtoList = genreRepository.GetAll().Where(x => x.Name.Contains(genreName, StringComparison.OrdinalIgnoreCase)).ToList();
-            var result = genreDtoList.ConvertToListResponse(mapper);
-            return result;
+
+      
+             var genreDtoList = genreRepository.GetAll().Where(x => x.Name.Contains(genreName, StringComparison.OrdinalIgnoreCase)).ToList();
+             var result = genreDtoList.ConvertToListResponse(mapper);
+             return result;
         }
 
         public IList<GenreListResponse> GetGenreByBookTitle(string bookTitle)

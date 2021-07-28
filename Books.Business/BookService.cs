@@ -52,9 +52,9 @@ namespace Books.Business
             return result;
         }
 
-        public IList<BookListResponse> GetBookByBookGenreName(string genreName)
+        public IList<BookListResponse> GetBookByBookGenreId(int genreId)
         {
-            var bookDtoList = bookRepository.GetAll().Where(x => x.Genres.Any(y => y.Genre.Name.Contains(genreName, StringComparison.OrdinalIgnoreCase))).ToList();
+            var bookDtoList = bookRepository.GetAll().Where(x => x.Genres.Any(y => y.Genre.Id == genreId)).ToList();
             var result = bookDtoList.ConvertToListResponse(mapper);
             return result;
         }
