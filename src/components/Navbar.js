@@ -15,7 +15,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div onClick={getBooks} className="container">
           <Link className="navbar-brand" to="/">
-            Navbar
+            ELFSİ
           </Link>
           <button
             className="navbar-toggler"
@@ -32,17 +32,12 @@ const Navbar = () => {
             <ul className="navbar-nav ms-auto">
               <li onClick={getBooks} className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  Home
+                  Kitaplar
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/Search">
-                  Search Book
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="#">
-                  Pricing
+                  Kitap Ara
                 </Link>
               </li>
               <li className="nav-item dropdown">
@@ -54,7 +49,7 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Publishers
+                  Yayınevleri
                 </Link>
                 <ul
                   className="dropdown-menu"
@@ -67,6 +62,7 @@ const Navbar = () => {
                         <div className="col" key={publisher.id}>
                           <Link 
                             to= {`/publisher/${publisher.id}`}
+                            className="btn btn-sm btn-outline-secondary"
                             
                           >
                             {publisher.name}
@@ -89,7 +85,7 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Genres
+                  Türler
                 </Link>
                 <ul
                   className="dropdown-menu"

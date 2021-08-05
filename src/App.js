@@ -30,7 +30,7 @@ const App = () => {
             <div className="container">
               <Switch>
                 <Route exact path="/">
-                  <Header title="Sample Title" slogan="Sample Slogan" />
+                  <Header title="ELFSİ KİTAP" slogan="Haydii gel yeni bir dost edinnn! :)" />
                   {loading ? (
                     <div className="spinner-border" role="status">
                       <span className="visually-hidden">Loading...</span>

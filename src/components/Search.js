@@ -23,7 +23,7 @@ const Search = () => {
           onChange={handleOnChange}
           type="text"
           className="form-control"
-          placeholder="search.."
+          placeholder="Aramak istediğiniz kitap ismi..."
           value={term}
         />
       </div>

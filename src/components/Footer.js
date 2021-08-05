@@ -7,12 +7,14 @@ class Footer extends Component {
       <footer className="text-muted py-5">
         <div className="container">
           <p className="float-end mb-1">
-            <a href="#top">Back to top</a>
+            <a href="#top">Başa Git</a>
             
           </p>
           <p className="mb-1">
-            Album example is © Bootstrap, but please download and customize it
-            for yourself!
+          <a href="https://github.com/elifsirin42">Github Sitem</a>
+          <br/> 
+          ELİF ŞİRİN 
+            
             
           </p>
          

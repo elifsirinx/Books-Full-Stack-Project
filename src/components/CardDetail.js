@@ -29,7 +29,7 @@ const CardDetail = (props) => {
           </p>
           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
           <Link className="btn btn-outline-secondary" to="/">
-            Home
+            Ana Sayfa
           </Link>
           </div>
         </div>
